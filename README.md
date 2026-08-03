@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NF App(F)(D9) - AI-Powered Health Assistant
 
-## Getting Started
+**NF App(F)(D9)** is an AI-powered health and routine dashboard built to help users track daily behavior, analyze routines, save exercise sessions, estimate calories burned, and get personalized AI guidance from one unified app.
 
-First, run the development server:
+Most health apps only store data. This app **interprets** it.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## What this app does
+
+This application brings together multiple health tracking features and powers them with AI:
+
+- **Routine Analyzer**: Upload or paste a daily routine and get AI analysis with scoring, issues, suggestions, and an action plan.
+- **Health Tracker**: Save health entries such as sleep, meals, water, mood, weight, and exercise history.
+- **Exercise Saver**: Log exercise (type, duration, intensity, etc.) and calculate estimated calories burned.
+- **Health Insights**: Get AI-powered suggestions based on your logs, BMI, weight goal, and recurring patterns.
+- **AI Chat**: Ask questions and receive answers that are informed by your saved routine, logs, profile, and analysis history.
+- **Daily Brief**: Get a short, personalized health check-in based on the time of day and your recent data.
+
+---
+
+## Project Structure (Restructured)
+
+The project has been simplified into a single root directory for both frontend (React) and backend (Express) files.
+
+```text
+NF App(F)(D9)
+├─ package.json        (Combined dependencies for client & server)
+├─ server.js           (Express server entry point)
+├─ routes/             (Backend API routes: ai, routine, health, etc.)
+├─ utils/              (Backend utilities: db.js, aiEngine.js)
+├─ data/               (Local JSON database storage)
+├─ public/             (React public assets)
+├─ src/                (React source code and components)
+└─ README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Summary of Moved Files and Important Paths
+- **`frontend/src/` → `src/`**: All React components, pages, and frontend utilities (e.g., `src/utils/api.js`).
+- **`frontend/public/` → `public/`**: All static assets for the React app.
+- **`backend/server.js` → `server.js`**: The main Express backend server file.
+- **`backend/routes/` → `routes/`**: API endpoints including AI and routines.
+- **`backend/utils/` → `utils/`**: Helper files like `db.js` and `aiEngine.js`.
+- **`backend/data/` → `data/`**: JSON files used for local storage.
+- **`package.json`**: The `frontend` and `backend` dependencies have been merged into the root `package.json`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## How to run locally
 
-## Learn More
+1. **Install all dependencies**  
+   From the root folder, simply run:
+   ```bash
+   npm install
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Start the app**  
+   Start both the frontend and backend servers concurrently:
+   ```bash
+   npm start
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Open in browser**  
+   - Frontend Dashboard: [http://localhost:3000](http://localhost:3000)
+   - Backend API: `http://localhost:5000`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Setting up AI (Groq API Key)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This application uses **Groq** to provide lightning-fast, free AI capabilities (via Llama 3). We have updated the app so you do **not** need to manage a backend `.env` file for API keys. Instead, the key is provided directly in the frontend UI and stored securely in your browser.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### How to get a free Groq key
+1. Go to [console.groq.com](https://console.groq.com)
+2. Sign in or create a free account (no credit card required).
+3. Navigate to **API Keys** in the sidebar.
+4. Click **Create API Key** and copy the generated key (it starts with `gsk_...`).
+
+### How to add it to the app
+1. Open the app in your browser ([http://localhost:3000](http://localhost:3000)).
+2. Navigate to the **AI Assistant** tab.
+3. In the top section, you will see an input field labeled **"Enter Groq API Key"**.
+4. Paste your key into this field. It will automatically save to your browser's local storage and unlock all AI features (Chat, Daily Brief, Routine Analysis).
+
+---
+
+## Troubleshooting
+
+- **Proxy Errors (Frontend)**: If the React app shows a proxy error, ensure the backend is running properly on port 5000. Check the terminal for any backend crash logs.
+- **AI Features Not Working**: If the AI responds with an error, double-check that you entered your Groq API key correctly in the AI Assistant tab.
+- **Port Conflicts**: If port 3000 or 5000 is already in use, you can update the ports in `package.json` (for React) or `server.js` (for Express).
+
+---
+
+Enjoy your AI-powered Health Assistant!
