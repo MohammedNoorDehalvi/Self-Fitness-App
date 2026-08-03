@@ -1,9 +1,8 @@
 /**
  * Health Assistant — Express Backend
- * Now loads .env for ANTHROPIC_API_KEY
+ * Works locally and on Vercel
  */
 const path = require('path');
-// Load .env (optional)
 require('dotenv').config();
 
 const express = require('express');
@@ -13,7 +12,8 @@ const { initDB } = require('./utils/db');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+// Open CORS for portfolio / demo hosting
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
@@ -34,8 +34,18 @@ app.use('/api/insights', require('./routes/insights'));
 app.get('/api/status', (_req, res) => {
   res.json({
     status: 'ok',
-    time: new Date().toISOString(),
-    aiReady: !!process.env.ANTHROPIC_API_KEY
+    time: new Date().toISOString()
+  });
+});
+
+// Serve React build in production / on Vercel
+const buildPath = path.join(__dirname, 'build');
+app.use(express.static(buildPath));
+
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api')) return next();
+  res.sendFile(path.join(buildPath, 'index.html'), (err) => {
+    if (err) next();
   });
 });
 
@@ -45,9 +55,12 @@ app.use((err, _req, res, _next) => {
   res.status(500).json({ error: err.message });
 });
 
-app.listen(PORT, () => {
-  console.log(`\n🏥 Health Assistant API → http://localhost:${PORT}`);
-  console.log('🤖 Vita AI: Requires GROQ_API_KEY from frontend request headers\n');
-});
+// Only listen locally — Vercel uses the exported app
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`\n🏥 Health Assistant API → http://localhost:${PORT}`);
+    console.log('🤖 Vita AI: Enter Groq key in the frontend\n');
+  });
+}
 
 module.exports = app;
