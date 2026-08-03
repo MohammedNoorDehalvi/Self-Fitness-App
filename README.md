@@ -1,5 +1,11 @@
 # NF App(F)(D9) - AI-Powered Health Assistant
 
+<div style="color: red; padding: 15px; border: 1px solid red; border-radius: 8px; margin-bottom: 20px; background-color: rgba(255, 0, 0, 0.05);">
+  <strong>Warning:</strong> This application is intended for local system hosting.<br>
+  If you are using a hosted version, please be aware that all data will be lost when you refresh or close the application.<br>
+  This hosted version is for demonstration purposes only.
+</div>
+
 **NF App(F)(D9)** is an AI-powered health and routine dashboard built to help users track daily behavior, analyze routines, save exercise sessions, estimate calories burned, and get personalized AI guidance from one unified app.
 
 Most health apps only store data. This app **interprets** it.
