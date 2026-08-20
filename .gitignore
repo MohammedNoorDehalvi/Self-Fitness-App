@@ -1,3 +1,47 @@
+# Dependencies
 node_modules/
 frontend/node_modules/
 backend/node_modules/
+.pnp
+.pnp.*
+
+# Environment and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+secrets.json
+
+# Personal health data and runtime state
+data/db.json
+data/*.json
+data/*.ndjson
+data/backups/
+!data/.gitkeep
+
+# Builds and caches
+build/
+dist/
+out/
+.next/
+coverage/
+.cache/
+
+# Logs and temporary files
+*.log
+*.bak
+*.backup
+*.tmp
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
